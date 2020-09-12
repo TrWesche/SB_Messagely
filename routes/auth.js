@@ -1,8 +1,9 @@
-const express = require("express")
-const ExpressError = require("../expressError")
-const jwt = require("jsonwebtoken")
-const { SECRET_KEY } = require("../config")
-const User = require("../models/user")
+const express = require("express");
+const ExpressError = require("../expressError");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const { SECRET_KEY } = require("../config");
+const User = require("../models/user");
 
 const router = new express.Router()
 
@@ -30,6 +31,7 @@ router.post("/login", async (req, res, next) => {
 
         // Return JSON Web Token
         const token = jwt.sign({ username }, SECRET_KEY);
+        res.cookie("uvert", token)
         return res.json({ username, "token": token })
     } catch (error) {
         next(error)
@@ -55,6 +57,7 @@ router.post("/register", async (req, res, next) => {
         await User.updateLoginTimestamp(newUser.username);
 
         const token = jwt.sign({ username: newUser.username }, SECRET_KEY);
+        res.cookie("uvert", token)
         return res.json({ username: newUser.username, "token": token })
 
     } catch (error) {

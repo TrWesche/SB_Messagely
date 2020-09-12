@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+<h1>Welcome to Messagely</h1>
+
+<div class="row">
+
+  <div class="col-12">
+  {% if user %}
+    <p>Welcome Back {{user.username}}</p>
+  {% else %}
+    <p>Please Login to Continue</p>
+  {% endif %}
+  </div>
+
+
+</div>
+
+{% endblock %}

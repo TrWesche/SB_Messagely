@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+
+
+<h1>Message Home</h1>
+
+<div class="row" id="alert-container">
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-6">
+        <div class="row scroll_window">
+            <div class="col">
+                <div class="list-group" id="to_messages_list">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="row scroll_window">
+            <div class="col">
+                <div class="list-group" id="from_messages_list">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="scripts/messagesController.js"></script>
+{% endblock %}

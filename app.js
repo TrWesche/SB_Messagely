@@ -2,6 +2,9 @@
 
 
 const express = require("express");
+const nunjucks = require("nunjucks");
+const cookieParser = require("cookie-parser");
+
 const cors = require("cors");
 const { authenticateJWT } = require("./middleware/auth");
 
@@ -10,7 +13,16 @@ const app = express();
 
 // allow both form-encoded and json body parsing
 app.use(express.json());
+app.use(cookieParser())
 app.use(express.urlencoded({extended: true}));
+app.use("/scripts", express.static('controllers'))
+app.use("/static", express.static('static'))
+
+// Configure nunjucks templating engine
+nunjucks.configure("templates", {
+  autoescape: true,
+  express: app
+});
 
 // allow connections to all routes from any browser
 app.use(cors());
@@ -23,10 +35,12 @@ app.use(authenticateJWT);
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const messageRoutes = require("./routes/messages");
+const viewHomeRoutes = require("./routes/vHome");
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/messages", messageRoutes);
+app.use("/", viewHomeRoutes);
 
 /** 404 handler */
 

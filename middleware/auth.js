@@ -7,8 +7,10 @@ const { SECRET_KEY } = require("../config");
 
 function authenticateJWT(req, res, next) {
   try {
-    const tokenFromBody = req.body.token;
-    const payload = jwt.verify(tokenFromBody, SECRET_KEY);
+    // const tokenFromBody = req.body.token;
+    // const payload = jwt.verify(tokenFromBody, SECRET_KEY);
+    const authenticationToken = (req.cookies.uvert) ? req.cookies.uvert : req.body.token;
+    const payload = jwt.verify(authenticationToken, SECRET_KEY);
     req.user = payload; // create a current user
     return next();
   } catch (err) {
